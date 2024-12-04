@@ -1,1 +1,10 @@
 HOW TO RUN THIS PROJECT
+
+first activate the virtual enviroment I created in this PROJECT
+open terminal in vs code 
+open terminal and write imsenv\Scripts\activate.
+
+now how to run the server in terminal type "python manage.py runserver"
+
+if you want to learn what else you can do on it type "python manage.py help" 
+this will give you list of task or things you can do
