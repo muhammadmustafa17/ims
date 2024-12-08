@@ -7,5 +7,5 @@ class CreateUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = '__all__'
-        #fields = ['username', 'email', 'password1', 'password2']  # Specify required fields
+        #fields = '__all__'
+        fields = ['username', 'email', 'password1', 'password2']  # Specify required fields
