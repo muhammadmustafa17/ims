@@ -18,7 +18,8 @@
                         <div class="col-md-8">
                             <span class="h4"> Profile Information</span> 
                             <hr>
-                            <form method="POST">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
                                 {{ user_form|crispy }}
                                 {{ profile_form|crispy }}
                             <input class="btn btn-info" type= "submit" value="Update">
