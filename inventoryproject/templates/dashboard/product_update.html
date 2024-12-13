@@ -1,0 +1,31 @@
+{% extends 'partials/base.html' %}
+{% block title %} Edit Item {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-lg border-0">
+                <!-- Card Header -->
+                <div class="card-header bg-info text-white text-center">
+                    <h3 class="mb-0">Edit Item</h3>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'dashboard-product' %}" class="btn btn-secondary btn-lg w-45">
+                                Cancel
+                            </a>
+                            <input class="btn btn-info btn-lg w-45" type="submit" value="Update">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
