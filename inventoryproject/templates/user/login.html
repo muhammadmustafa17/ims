@@ -2,20 +2,32 @@
 {% block title %} Login Page {% endblock %}
 {% load crispy_forms_tags %}
 
-{% block content%}
-    <div class="container"> 
-        <div class="row mt-5">
-            <div class="col-md-6 offset-md-3">
-                <div class="border p-3 bg-white">
-                    <h3>Login Page</h3>
-                    <hr>
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        <input class="btn btn-success" type="submit" value="Login">
-                    </form>
+{% block content %}
+<div class="container"> 
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-6">
+            <!-- Messages -->
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+
+            <!-- Login Form -->
+            <div class="border p-4 bg-white shadow-sm">
+                <h3 class="text-center">Login Page</h3>
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button class="btn btn-success w-100" type="submit">Login</button>
+                </form>
+                <div class="mt-3 text-center">
+                    <p>Don't have an account? <a href="{% url 'user-register' %}">Register here</a>.</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

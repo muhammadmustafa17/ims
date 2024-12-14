@@ -1,18 +1,33 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm
+from django.contrib import messages
 
 # Create your views here.
 def register(request):
+    """
+    Handles user registration.
+
+    GET: Displays an empty registration form.
+    POST: Validates and processes the registration form. 
+    Provides success or error messages based on the form's validity.
+    """
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
+            # Save the user and retrieve the username
+            user = form.save()
+            username = user.username
+            messages.success(request, f'Account successfully created for {username}. You can now log in.')
             return redirect('user-login')
+        else:
+            # Handle invalid form submission
+            messages.error(request, 'Registration failed. Please correct the errors in the form.')
     else:
         form = CreateUserForm()
+
     context = {
-        'form':form
+        'form': form,
     }
     return render(request, 'user/register.html', context)
 

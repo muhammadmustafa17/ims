@@ -4,12 +4,14 @@ from django.contrib.auth.decorators import login_required
 from .models import Product, Order
 from .forms import ProductForm, OrderForm
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 # Create your views here.
 #@login_required(login_url='user-login')
 @login_required
 def index(request):
     orders = Order.objects.all()
+    products = Product.objects.all()
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
@@ -22,6 +24,7 @@ def index(request):
     context = {
         'orders' : orders,
         'form': form,
+        'products' : products, 
     }
     return render(request, 'dashboard/index.html', context)
 
@@ -43,20 +46,40 @@ def staff_detail(request, pk):
 
 @login_required
 def product(request):
-    items = Product.objects.all() #using ORM
-    #items = Product.objects.raw('SELECT * FROM dashboard_product')
+    """
+    Handles the display and creation of products.
+
+    GET: Displays all products and an empty product form.
+    POST: Processes the product form, validates it, and saves the product.
+    Provides appropriate success or error messages.
+    """
+    # Fetch all product records using the ORM
+    products = Product.objects.all()
+
     if request.method == 'POST':
         form = ProductForm(request.POST)
-        if form.is_valid(): 
-            form.save()
+        if form.is_valid():
+            # Save the new product and fetch the product name
+            product = form.save()
+            product_name = product.name
+            messages.success(request, f'Product "{product_name}" has been successfully added!')
             return redirect('dashboard-product')
-    else :
+        else:
+            # Handle invalid form submission
+            messages.error(request, 'Failed to add the product. Please check the form for errors.')
+    else:
         form = ProductForm()
+
+    # Provide feedback if no products exist
+    if not products.exists():
+        messages.info(request, 'No products are currently available. Start by adding a new product!')
+
     context = {
-        'items' : items,
-        'form' : form,
+        'items': products,
+        'form': form,
     }
     return render(request, 'dashboard/product.html', context)
+
 
 @login_required
 def product_delete(request, pk):
