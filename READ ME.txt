@@ -1,0 +1,41 @@
+How to Run Your Django Web Application
+Activate the Virtual Environment
+
+Before starting, ensure you activate the virtual environment you created for the project. The name of the environment is imsenv.
+Open your terminal and navigate to the folder containing the imsenv environment.
+Activate the environment:
+On Windows:
+bash
+Copy code
+imsenv\Scripts\activate
+On macOS/Linux:
+bash
+Copy code
+source imsenv/bin/activate
+Run the Server
+
+Once the virtual environment is activated, navigate to the folder containing your Django project (where manage.py is located), which would be in cd .\inventoryproject\.
+Run the following command in the terminal:
+bash
+Copy code
+python manage.py runserver
+Access the Application
+
+After running the command, a URL will be displayed in the terminal, such as:
+bash
+Copy code
+http://127.0.0.1:8000/
+Hold the Ctrl key and click on the URL (or copy-paste it into your browser). This will open the application in your default browser.
+Logging In
+
+Admin User:
+Username: Admin
+Password: imsadmin
+The admin user has full rights to view and manage all areas of the application.
+Staff User:
+Username: Hasan
+Password: Hasan123456
+The staff user has restricted permissions based on your application's settings.
+Stop the Server
+
+To stop the server, return to the terminal running the application and press Ctrl + C.
